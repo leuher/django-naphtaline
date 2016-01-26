@@ -1,3 +1,4 @@
+"""
+django-naphtaline - administration interface settings
+"""
 from django.contrib import admin
-
-# Register your models here.
