@@ -1,4 +1,4 @@
 """
 django-naphtaline - administration interface settings
 """
-from django.contrib import admin
+# from django.contrib import admin

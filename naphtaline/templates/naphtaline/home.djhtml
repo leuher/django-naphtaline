@@ -1,0 +1,7 @@
+{% extends 'naphtaline/base.djhtml' %}
+
+{% block pagetitle %}Home{% endblock %}
+{% block body %}
+<h1>Naphtaline</h1>
+<p>Welcome home ;-)</p>
+{% endblock %}

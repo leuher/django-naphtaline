@@ -1,0 +1,3 @@
+"""
+naphtaline.views unit tests
+"""
