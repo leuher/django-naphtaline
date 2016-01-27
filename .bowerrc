@@ -1,0 +1,5 @@
+{
+  "analytics": false,
+  "directory": "naphtaline/static/naphtaline/",
+  "timeout": 120000
+}

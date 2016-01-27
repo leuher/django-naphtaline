@@ -1,0 +1,6 @@
+{
+  "name": "django-naphtaline",
+  "dependencies": {
+    "Ink": "^3.1.10"
+  }
+}

@@ -1,16 +1,25 @@
 *~
 *.pyc
-
-*.egg-info
-*.sqlite3
-
 __pycache__
 
+# bower
+animate.css
+bower-compass-core
+font-awesome
+Ink
+
+
+# docs
+_build
+
+# setuptools
+*.egg-info
+build
+dist
+
+# tests
+*.sqlite3
 .cache
 .coverage
 .tox
 htmlcov
-
-_build
-build
-dist
