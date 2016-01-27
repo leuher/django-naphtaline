@@ -9,14 +9,19 @@
     <link rel="stylesheet" type="text/css" href="{% static 'naphtaline/ink.naphtaline.css' %}"/>
   </head>
   <body>
+    <header>
+      <nav class="ink-navigation">
+        <ul class="menu horizontal green">
+          <li class="heading"><a href="{% url 'naphtaline:home' %}">naphtaline</a></li>
+        </ul>
+      </nav>
+    </header>
     <div class="ink-grid">
-      <div class="column-group">
+      <div class="column-group horizontal-gutters">
         <div class="xlarge-20 large-30 medium-40 small-50 tiny-100">
-          <header>
-            <h1>Naphtaline</h1>
-          </header>
+          {% include 'naphtaline/menu.djhtml' %}
         </div>
-        <div class="xlarge-80 large-70 medium-60 small-50 tiny-100 vertical-space">
+        <div class="xlarge-80 large-70 medium-60 small-50 tiny-100">
           {% block content %}{% endblock %}
         </div>
       </div>

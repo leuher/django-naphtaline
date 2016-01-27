@@ -1,0 +1,40 @@
+{% extends 'naphtaline/base.djhtml' %}
+
+{% block pagetitle %}Login{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
+<h2>Login</h2>
+<form class="ink-form" method="post" action="{% url 'naphtaline:login' %}">
+  {% csrf_token %}
+
+  <div class="control-group">
+    {{ form.username.label_tag }}
+    {{ form.username }}
+  </div>
+
+  <div class="control-group">
+    {{ form.password.label_tag }}
+    {{ form.password }}
+  </div>
+
+  <div class="control-group">
+    <input class="ink-button green" type="submit" value="Submit" />
+  </div>
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}
