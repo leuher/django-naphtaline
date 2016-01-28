@@ -1,4 +1,80 @@
+# -*- coding: utf-8 -*-
 """
 django-naphtaline - models
 """
-# from django.db import models
+from django.contrib.auth import models as auth_models
+from django.db import models
+
+
+class ISBN13Field(models.CharField):
+    """
+    ISBN 13-digit string representation
+    """
+
+    def __init__(self, *args, **kwargs):
+        kwargs['max_length'] = 13
+        super(ISBN13Field, self).__init__(*args, **kwargs)
+
+
+class Artist(models.Model):
+    """
+    Author/writer/illustrator/...
+    """
+
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    pen_name = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
+    @property
+    def full_name(self):
+        """
+        Returns the artist's pen (if any) and real names
+        """
+        if not self.pen_name:
+            return str(self)
+
+        return "{pen} ({first} {last})".format(
+            pen=self.pen_name,
+            first=self.first_name,
+            last=self.last_name
+        )
+
+
+class Company(models.Model):
+    """
+    Edition/publication company
+    """
+
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Book(models.Model):
+    """
+    Book information
+    """
+
+    title = models.CharField(max_length=255)
+    authors = models.ManyToManyField(Artist)
+
+    def __str__(self):
+        return self.title
+
+
+class Publication(Book):
+    """
+    Publication-specific information
+    """
+
+    isbn13 = ISBN13Field()
+    publisher = models.ForeignKey(Company)
+    pub_date = models.DateField(blank=True)
+    owners = models.ManyToManyField(auth_models.User)
+
+    def __str__(self):
+        return self.title

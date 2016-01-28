@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 django-naphtaline - views
 """

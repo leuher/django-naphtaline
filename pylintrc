@@ -9,7 +9,7 @@
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=.git,.tox,build,dist,docs,requirements
+ignore=.git,.tox,build,dist,docs,migrations,requirements
 
 # Pickle collected data for later comparisons.
 persistent=yes
