@@ -13,6 +13,7 @@ class ISBN13Field(models.CharField):
 
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 13
+        kwargs['verbose_name'] = "ISBN-13"
         super(ISBN13Field, self).__init__(*args, **kwargs)
 
 
@@ -24,6 +25,9 @@ class Artist(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     pen_name = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        ordering = ['last_name', 'first_name']
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
@@ -50,6 +54,9 @@ class Company(models.Model):
 
     name = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = "companies"
+
     def __str__(self):
         return self.name
 
@@ -61,6 +68,9 @@ class Book(models.Model):
 
     title = models.CharField(max_length=255)
     authors = models.ManyToManyField(Artist)
+
+    class Meta():
+        ordering = ['title']
 
     def __str__(self):
         return self.title
