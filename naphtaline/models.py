@@ -24,27 +24,12 @@ class Artist(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    pen_name = models.CharField(max_length=100, blank=True)
 
     class Meta:
         ordering = ['last_name', 'first_name']
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
-
-    @property
-    def full_name(self):
-        """
-        Returns the artist's pen (if any) and real names
-        """
-        if not self.pen_name:
-            return str(self)
-
-        return "{pen} ({first} {last})".format(
-            pen=self.pen_name,
-            first=self.first_name,
-            last=self.last_name
-        )
 
 
 class Company(models.Model):

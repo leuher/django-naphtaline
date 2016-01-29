@@ -20,7 +20,6 @@ class ArtistTests(TestCase):
         Artist.objects.create(
             first_name="Nyarla",
             last_name="Thotep",
-            pen_name="Nyarlathotep"
         )
         Artist.objects.create(
             first_name="John",
@@ -38,7 +37,6 @@ class ArtistTests(TestCase):
         artist = Artist.objects.get(pk=1)
         self.assertEqual(artist.first_name, "Nyarla")
         self.assertEqual(artist.last_name, "Thotep")
-        self.assertEqual(artist.pen_name, "Nyarlathotep")
 
     def test_str(self):
         """
@@ -53,24 +51,6 @@ class ArtistTests(TestCase):
         """
         artist = Artist.objects.get(pk=3)
         self.assertEqual(str(artist), "Grůdü Æbër¢øłd")
-
-    def test_full_name_pen_real(self):
-        """
-        String representation (pen + real names)
-        """
-        self.assertEqual(
-            Artist.objects.get(pk=1).full_name,
-            "Nyarlathotep (Nyarla Thotep)"
-        )
-
-    def test_full_name_real(self):
-        """
-        String representation (real name)
-        """
-        self.assertEqual(
-            Artist.objects.get(pk=2).full_name,
-            "John Smith"
-        )
 
 
 class CompanyTests(TestCase):
@@ -108,12 +88,10 @@ class BookTests(TestCase):
         Artist.objects.create(
             first_name="John",
             last_name="Smith",
-            pen_name="The Doctor"
         )
         Artist.objects.create(
             first_name="Ush",
             last_name="As",
-            pen_name="The Rani"
         )
         Book.objects.create(title="Gallifreyan Chronicles")
 
@@ -178,12 +156,10 @@ class PublicationTests(TestCase):
         Artist.objects.create(
             first_name="John",
             last_name="Smith",
-            pen_name="The Doctor"
         )
         Artist.objects.create(
             first_name="Ush",
             last_name="As",
-            pen_name="The Rani"
         )
         User.objects.create_user(
             username='the_silence',
