@@ -28,7 +28,7 @@ class PublicationAdmin(admin.ModelAdmin):
     Publication display options
     """
 
-    list_display = ('title', 'publisher', 'isbn13')
+    list_display = ('book', 'publisher', 'isbn13')
 
 
 admin.site.register(Artist, ArtistAdmin)

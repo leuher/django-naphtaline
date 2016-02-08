@@ -61,15 +61,16 @@ class Book(models.Model):
         return self.title
 
 
-class Publication(Book):
+class Publication(models.Model):
     """
     Publication-specific information
     """
 
     isbn13 = ISBN13Field()
+    book = models.ForeignKey(Book)
     publisher = models.ForeignKey(Company)
     pub_date = models.DateField(blank=True)
-    owners = models.ManyToManyField(auth_models.User)
+    owners = models.ManyToManyField(auth_models.User, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.book.title
