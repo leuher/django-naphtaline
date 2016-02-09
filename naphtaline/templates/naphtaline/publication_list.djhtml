@@ -1,0 +1,33 @@
+{% extends 'naphtaline/base.djhtml' %}
+
+{% block pagetitle %}Books{% endblock %}
+{% block content %}
+{% if not publications %}
+  <h2>Oh noes :-(</h2>
+  <p>No book added yet!</p>
+{% else %}
+  <h2>All books</h2>
+  <table class="ink-table alternating hover bordered">
+    <thead>
+      <tr>
+        <th class="align-left">Title</th>
+        <th class="align-left">Authors</th>
+        <th class="align-left">Publication</th>
+        <th class="align-left">ISBN</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pub in publications %}
+        <tr>
+          <td>{{ pub.book.title }}</td>
+          <td>
+            {{ pub.book.authors.all|join:', ' }}
+          </td>
+          <td>{{ pub.pub_date.year }}</td>
+          <td>{{ pub.isbn13 }}</td>
+        </tr>
+      {% endfor %}
+  </tbody>
+  </table>
+{% endif %}
+{% endblock %}

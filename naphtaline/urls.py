@@ -22,4 +22,5 @@ urlpatterns = [
         name='logout',
     ),
     url(r'^$', views.home, name='home'),
+    url(r'^books/$', views.booklist, name='books'),
 ]
