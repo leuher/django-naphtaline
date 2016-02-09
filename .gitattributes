@@ -1,0 +1,30 @@
+# Set default behavior
+*               text=auto eol=lf
+
+# Ensure sources are processed
+*.cfg           text
+*.css           text
+*.dia           text diff=xml
+*.djhtml        text diff=html
+*.js            text
+*.html          text diff=html
+*.ini           text
+*.py            text diff=python
+*.rst           text
+
+# Do nor alter images nor minified scripts
+*.ico           binary
+*.jpg           binary
+*.min.css       binary
+*.min.js        binary
+*.png           binary
+*.svg           binary
+
+# Exclude from Git archives
+.gitattributes  export-ignore
+.gitignore      export-ignore
+Makefile        export-ignore
+pylintrc        export-ignore
+setup.cfg       export-ignore
+tests/          export-ignore
+tox.ini         export-ignore
