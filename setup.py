@@ -40,8 +40,7 @@ setup(
     keywords="django book isbn library collection",
     packages=find_packages(exclude=['tests.*', 'tests']),
     install_requires=[
-        'django==1.9.1',
-        'six==1.10.0',
+        'django>=1.9',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
