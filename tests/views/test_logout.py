@@ -12,7 +12,7 @@ class LogoutViewTests(TestCase):
 
     def test_redirect_after_logout(self):
         """
-        Rendirect to the home page after logout
+        Redirect to the home page after logout
         """
         response = self.client.get(reverse('naphtaline:logout'))
         self.assertEqual(response.status_code, 302)

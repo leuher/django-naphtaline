@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Setup script for Botibal
+Setup script for Naphtaline
 """
 import codecs
 import os

@@ -14,7 +14,7 @@ class LoginViewTests(TestCase):
 
     def test_render(self):
         """
-        Rendirect to the home page after logout
+        Display the login form
         """
         response = self.client.get(reverse('naphtaline:login'))
         self.assertEqual(response.status_code, 200)
