@@ -16,5 +16,5 @@ class BooklistViewTests(UserTestCase):
         Render the page
         """
         self.client.login(username=self.user_name, password=self.user_password)
-        response = self.client.get(reverse('naphtaline:books'))
+        response = self.client.get(reverse('naphtaline:list_books'))
         self.assertEqual(response.status_code, 200)

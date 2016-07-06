@@ -7,7 +7,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from naphtaline.models import Artist, Book, Company, Publication
+from naphtaline.models import Artist, Book, Company
 
 
 class ArtistTests(TestCase):
@@ -93,78 +93,16 @@ class BookTests(TestCase):
             first_name="Ush",
             last_name="As",
         )
-        Book.objects.create(title="Gallifreyan Chronicles")
 
-    def test_create(self):
-        """
-        Entry creation
-        """
-        self.assertEqual(Book.objects.get(pk=1).title, "Gallifreyan Chronicles")
+        publisher = Company.objects.create(name="Timey-Wimey, Inc.")
 
-    def test_str(self):
-        """
-        String representation
-        """
-        self.assertEqual(str(Book.objects.get(pk=1)), "Gallifreyan Chronicles")
-
-    def test_add_single_author(self):
-        """
-        Add an author for a Book
-        """
-        book = Book.objects.get(pk=1)
-        artist = Artist.objects.get(pk=1)
-        book.authors.add(artist)
-        self.assertQuerysetEqual(
-            book.authors.all(),
-            [repr(artist)]
-        )
-        self.assertQuerysetEqual(
-            artist.book_set.all(),
-            [repr(book)]
-        )
-
-    def test_add_multiple_authors(self):
-        """
-        Add several authors for a Book
-        """
-        book = Book.objects.get(pk=1)
-        artist1 = Artist.objects.get(pk=1)
-        artist2 = Artist.objects.get(pk=2)
-        book.authors.add(artist1, artist2)
-        self.assertQuerysetEqual(
-            book.authors.all(),
-            [repr(artist1), repr(artist2)],
-            ordered=False
-        )
-        self.assertQuerysetEqual(
-            artist1.book_set.all(),
-            [repr(book)]
-        )
-        self.assertQuerysetEqual(
-            artist2.book_set.all(),
-            [repr(book)]
-        )
-
-
-class PublicationTests(TestCase):
-    """
-    Publication model unit tests
-    """
-
-    @classmethod
-    def setUpTestData(cls):
-        author1 = Artist.objects.create(
-            first_name="John",
-            last_name="Smith",
-        )
-        author2 = Artist.objects.create(
-            first_name="Ush",
-            last_name="As",
-        )
-        book = Book.objects.create(
+        cls.book = Book.objects.create(
             title="Gallifreyan Chronicles",
+            isbn13='1234567891234',
+            publisher=publisher,
+            pub_date=datetime.now()
         )
-        book.authors.add(author1, author2)
+
         User.objects.create_user(
             username='the_silence',
             email='silence@the-library.com',
@@ -175,66 +113,92 @@ class PublicationTests(TestCase):
             email='dr_song@the-library.com',
             password='m3l0dy§'
         )
-        publisher = Company.objects.create(name="Timey-Wimey, Inc.")
-        Publication.objects.create(
-            isbn13='1234567891234',
-            book=book,
-            publisher=publisher,
-            pub_date=datetime.now()
-        )
 
     def test_create(self):
         """
         Entry creation
         """
-        publication = Publication.objects.get(pk=1)
-        self.assertEqual(publication.isbn13, '1234567891234')
+        self.assertEqual(self.book.title, "Gallifreyan Chronicles")
+        self.assertEqual(self.book.isbn13, '1234567891234')
 
     def test_str(self):
         """
         String representation
         """
-        publication = Publication.objects.get(pk=1)
-        self.assertEqual(str(publication), "Gallifreyan Chronicles")
+        self.assertEqual(str(self.book), "Gallifreyan Chronicles")
+
+    def test_add_single_author(self):
+        """
+        Add an author for a Book
+        """
+        artist = Artist.objects.get(pk=1)
+        self.book.authors.add(artist)
+        self.assertQuerysetEqual(
+            self.book.authors.all(),
+            [repr(artist)]
+        )
+        self.assertQuerysetEqual(
+            artist.book_set.all(),
+            [repr(self.book)]
+        )
+
+    def test_add_multiple_authors(self):
+        """
+        Add several authors for a Book
+        """
+        artist1 = Artist.objects.get(pk=1)
+        artist2 = Artist.objects.get(pk=2)
+        self.book.authors.add(artist1, artist2)
+        self.assertQuerysetEqual(
+            self.book.authors.all(),
+            [repr(artist1), repr(artist2)],
+            ordered=False
+        )
+        self.assertQuerysetEqual(
+            artist1.book_set.all(),
+            [repr(self.book)]
+        )
+        self.assertQuerysetEqual(
+            artist2.book_set.all(),
+            [repr(self.book)]
+        )
 
     def test_add_single_owner(self):
         """
-        Add an owner for a Publication
+        Add an owner for a Book
         """
         # https://github.com/landscapeio/pylint-django/issues/53
         # pylint: disable=no-member
-        publication = Publication.objects.get(pk=1)
         owner = User.objects.get(pk=1)
-        publication.owners.add(owner)
+        self.book.owners.add(owner)
         self.assertQuerysetEqual(
-            publication.owners.all(),
+            self.book.owners.all(),
             [repr(owner)]
         )
         self.assertQuerysetEqual(
-            owner.publication_set.all(),
-            [repr(publication)]
+            owner.book_set.all(),
+            [repr(self.book)]
         )
 
-    def test_add_multiple_owner(self):
+    def test_add_multiple_owners(self):
         """
-        Add several owners for a Publication
+        Add several owners for a Book
         """
         # https://github.com/landscapeio/pylint-django/issues/53
         # pylint: disable=no-member
-        publication = Publication.objects.get(pk=1)
         owner1 = User.objects.get(pk=1)
         owner2 = User.objects.get(pk=2)
-        publication.owners.add(owner1, owner2)
+        self.book.owners.add(owner1, owner2)
         self.assertQuerysetEqual(
-            publication.owners.all(),
+            self.book.owners.all(),
             [repr(owner1), repr(owner2)],
             ordered=False
         )
         self.assertQuerysetEqual(
-            owner1.publication_set.all(),
-            [repr(publication)]
+            owner1.book_set.all(),
+            [repr(self.book)]
         )
         self.assertQuerysetEqual(
-            owner2.publication_set.all(),
-            [repr(publication)]
+            owner2.book_set.all(),
+            [repr(self.book)]
         )

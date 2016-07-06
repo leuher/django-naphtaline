@@ -2,7 +2,7 @@
 
 {% block pagetitle %}Books{% endblock %}
 {% block content %}
-{% if not publications %}
+{% if not books %}
   <h2>Oh noes :-(</h2>
   <p>No book added yet!</p>
 {% else %}
@@ -12,19 +12,19 @@
       <tr>
         <th class="align-left">Title</th>
         <th class="align-left">Authors</th>
-        <th class="align-left">Publication</th>
+        <th class="align-left">Publication year</th>
         <th class="align-left">ISBN</th>
       </tr>
     </thead>
     <tbody>
-      {% for pub in publications %}
+      {% for book in books %}
         <tr>
-          <td>{{ pub.book.title }}</td>
+          <td>{{ book.title }}</td>
           <td>
-            {{ pub.book.authors.all|join:', ' }}
+            {{ book.authors.all|join:', ' }}
           </td>
-          <td>{{ pub.pub_date.year }}</td>
-          <td>{{ pub.isbn13 }}</td>
+          <td>{{ book.pub_date.year }}</td>
+          <td>{{ book.isbn13 }}</td>
         </tr>
       {% endfor %}
   </tbody>

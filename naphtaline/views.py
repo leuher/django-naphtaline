@@ -5,7 +5,7 @@ django-naphtaline - views
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from .models import Publication
+from .models import Book
 
 
 def home(request):
@@ -16,16 +16,16 @@ def home(request):
 
 
 @login_required
-def booklist(request):
+def list_books(request):
     """
-    Book list
+    Lists all books owned by the current user
     """
     return render(
         request,
-        'naphtaline/publication_list.djhtml',
+        'naphtaline/list_books.djhtml',
         {
-            'publications': Publication.objects.filter(
+            'books': Book.objects.filter(
                 owners=request.user
-            ).order_by('book__title')
+            ).order_by('title')
         }
     )

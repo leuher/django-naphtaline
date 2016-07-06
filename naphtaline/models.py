@@ -48,29 +48,18 @@ class Company(models.Model):
 
 class Book(models.Model):
     """
-    Book information
+    Published book
     """
 
     title = models.CharField(max_length=255)
     authors = models.ManyToManyField(Artist)
+    isbn13 = ISBN13Field()
+    publisher = models.ForeignKey(Company)
+    pub_date = models.DateField(blank=True)
+    owners = models.ManyToManyField(auth_models.User, blank=True)
 
     class Meta():
         ordering = ['title']
 
     def __str__(self):
         return self.title
-
-
-class Publication(models.Model):
-    """
-    Publication-specific information
-    """
-
-    isbn13 = ISBN13Field()
-    book = models.ForeignKey(Book)
-    publisher = models.ForeignKey(Company)
-    pub_date = models.DateField(blank=True)
-    owners = models.ManyToManyField(auth_models.User, blank=True)
-
-    def __str__(self):
-        return self.book.title
