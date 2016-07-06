@@ -3,6 +3,7 @@
     <li><a href="{% url 'naphtaline:home' %}">Home</a></li>
     {% if request.user.is_authenticated %}
       <li><a href="{% url 'naphtaline:list_books' %}">Books</a></li>
+      <li><a href="{% url 'naphtaline:add_book' %}">Add a book</a></li>
       <li><a href="{% url 'naphtaline:logout' %}">Log out</a></li>
     {% else %}
       <li><a href="{% url 'naphtaline:login' %}">Log in</a></li>

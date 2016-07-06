@@ -5,6 +5,7 @@ django-naphtaline - views
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from .forms import BookForm
 from .models import Book
 
 
@@ -13,6 +14,18 @@ def home(request):
     Home page
     """
     return render(request, 'naphtaline/home.djhtml')
+
+
+@login_required
+def add_book(request):
+    """
+    Add a new book
+    """
+    if request.method == 'POST':
+        # TODO
+        return
+    form = BookForm()
+    return render(request, 'naphtaline/add_book.djhtml', {'form': form})
 
 
 @login_required
