@@ -1,11 +1,11 @@
 {% extends 'naphtaline/base.djhtml' %}
 
-{% block pagetitle %}Home{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
-<h2>Welcome home ;-)</h2>
-{% if request.user.is_authenticated %}
-<p>You are currently logged in as <em>{{ request.user.username }}</em>.</p>
-{% else %}
-<p>Please <a href="{% url 'naphtaline:login' %}">log in</a> to continue!</p>
-{% endif %}
+  <h2>Welcome home ;-)</h2>
+  {% if request.user.is_authenticated %}
+    <p>You are currently logged in as <em>{{ request.user.username }}</em>.</p>
+  {% else %}
+    <p>Please <a href="{% url 'naphtaline:login' %}">log in</a> to continue!</p>
+  {% endif %}
 {% endblock %}

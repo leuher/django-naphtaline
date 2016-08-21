@@ -1,0 +1,22 @@
+{% load bootstrap3 %}
+{% url 'naphtaline:home' as home %}
+{% url 'naphtaline:list_books' as list_books %}
+{% url 'naphtaline:login' as login %}
+{% url 'naphtaline:logout' as logout %}
+<ul class="nav nav-sidebar">
+  <li{% ifequal request.path home %} class="active"{% endifequal %}>
+    <a href="{{ home }}">{% bootstrap_icon "home" %}&nbsp;Home</a>
+  </li>
+  {% if request.user.is_authenticated %}
+    <li{% ifequal request.path list_books %} class="active"{% endifequal %}>
+      <a href="{{ list_books }}">{% bootstrap_icon "book" %}&nbsp;Books</a>
+    </li>
+    <li{% ifequal request.path logout %} class="active"{% endifequal %}>
+      <a href="{{ logout }}">{% bootstrap_icon "user" %}&nbsp;Log out</a>
+    </li>
+  {% else %}
+    <li{% ifequal request.path login %} class="active"{% endifequal %}>
+      <a href="{{ login }}">{% bootstrap_icon "user" %}&nbsp;Log in</a>
+    </li>
+  {% endif %}
+</ul>

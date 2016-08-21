@@ -1,33 +1,33 @@
 {% extends 'naphtaline/base.djhtml' %}
 
-{% block pagetitle %}Books{% endblock %}
+{% block title %}Books{% endblock %}
 {% block content %}
-{% if not books %}
-  <h2>Oh noes :-(</h2>
-  <p>No book added yet!</p>
-{% else %}
-  <h2>All books</h2>
-  <table class="ink-table alternating hover bordered">
-    <thead>
-      <tr>
-        <th class="align-left">Title</th>
-        <th class="align-left">Authors</th>
-        <th class="align-left">Publication year</th>
-        <th class="align-left">ISBN</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for book in books %}
+  {% if not books %}
+    <h2>Oh noes :-(</h2>
+    <p>No book added yet!</p>
+  {% else %}
+    <h2>All books</h2>
+    <table class="table table-hover table-striped">
+      <thead>
         <tr>
-          <td>{{ book.title }}</td>
-          <td>
-            {{ book.authors.all|join:', ' }}
-          </td>
-          <td>{{ book.pub_date.year }}</td>
-          <td>{{ book.isbn13 }}</td>
+          <th class="align-left">Title</th>
+          <th class="align-left">Authors</th>
+          <th class="align-left">Publication year</th>
+          <th class="align-left">ISBN</th>
         </tr>
-      {% endfor %}
-  </tbody>
-  </table>
-{% endif %}
+      </thead>
+      <tbody>
+        {% for book in books %}
+          <tr>
+            <td>{{ book.title }}</td>
+            <td>
+              {{ book.authors.all|join:', ' }}
+            </td>
+            <td>{{ book.pub_date.year }}</td>
+            <td>{{ book.isbn13 }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
 {% endblock %}

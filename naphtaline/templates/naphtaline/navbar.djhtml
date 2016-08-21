@@ -1,0 +1,24 @@
+{% load bootstrap3 %}
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'naphtaline:home' %}">naphtaline</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li class="navbar-text">
+            {% bootstrap_icon "user" %}&nbsp;{{ request.user.get_username }}
+          </li>
+          <li><a href="{% url 'naphtaline:logout' %}">Log out</a></li>
+        {% else %}
+          <form action="{% url 'naphtaline:login' %}" method="GET"
+                class="navbar-form navbar-left">
+            {% csrf_token %}
+            {% bootstrap_button "Log in" button_type="submit" button_class="btn-default"%}
+          </form>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
